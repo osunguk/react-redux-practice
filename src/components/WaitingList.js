@@ -1,11 +1,11 @@
 import React from 'react';
 import './WaitingList.css';
 
-const WaitingItem = ({text, entered, onEnter, onLeave}) => {
-  return(
+const WaitingItem = ({ text, entered, onEnter, onLeave }) => {
+  return (
     <li>
       <div className={`text ${entered ? 'entered' : ''}`}>{text}</div>
-      <div className='button'>
+      <div className='buttons'>
         <button onClick={onEnter}>입장</button>
         <button onClick={onLeave}>퇴장</button>
       </div>
@@ -15,21 +15,36 @@ const WaitingItem = ({text, entered, onEnter, onLeave}) => {
 
 
 
-const WaitingList = ({ waitingList, onEnter, onLeave}) => {
-  return(
-    <div className='waitingList'>
+const WaitingList = ({
+  input, // **** 추가됨
+  waitingList,
+  onChange, // **** 추가됨
+  onSubmit, // **** 추가됨
+  onEnter,
+  onLeave,
+}) => {
+  // **** 데이터를 컴포넌트 리스트로 변환
+  const waitingItems = waitingList.map(w => (
+    <WaitingItem
+      key={w.id}
+      text={w.name}
+      entered={w.entered}
+      id={w.id}
+      onEnter={() => onEnter(w.id)}
+      onLeave={() => onLeave(w.id)}
+    />
+  ));
+  return (
+    <div className="WaitingList">
       <h2>대기자 명단</h2>
-      <form>
-        <input />
+      {/* form 과 input 에 이벤트 및 값 설정 */}
+      <form onSubmit={onSubmit}>
+        <input value={input} onChange={onChange} />
         <button>등록</button>
       </form>
-      <ul>
-        <WaitingItem text='홍기동' entered />
-        <WaitingItem text='콩쥐' />
-        <WaitingItem text='팥쥐' />
-      </ul>
+      <ul>{waitingItems}</ul> {/* 하드코딩된것을 컴포넌트 배열로 교체 */}
     </div>
-  )
-}
+  );
+};
 
 export default WaitingList

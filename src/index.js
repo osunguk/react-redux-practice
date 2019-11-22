@@ -6,9 +6,16 @@ import App from './App';
 import { createStore } from 'redux'
 import rootReducer from './store/modules'
 
-const store = createStore(rootReducer)
-console.log(store.getState())
+// **** Provider 불러오기
+import { Provider } from 'react-redux';
+
+// **** 리덕스 개발자도구 적용
+const devTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(rootReducer, devTools);
 
 ReactDOM.render(
-  <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
   , document.getElementById('root'));
