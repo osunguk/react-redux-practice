@@ -14,9 +14,10 @@ const LEAVE = 'waiting/LEAVE'
 let id = 3; //데이터를 새로 생성 할 때마다 고유 id 값을 주기 위해서
 // 아래는 craeteAction으로 만드는 액션함수정의 코드
 export const changeInput = createAction(CHANGE_INPUT, text => text)
-export const create = createAction(CREATE, text => ({text, id: id++}))
+export const create = createAction(CREATE, text => ({ text, id: id++ }))
 export const enter = createAction(ENTER, id => id)
 export const leave = createAction(LEAVE, id => id)
+
 
 const initialState = {
   input: '',
@@ -51,21 +52,21 @@ export default handleActions(
         id: action.payload.id,
         name: action.payload.text,
         entered: false,
-      })
+      }),
     }),
     [ENTER]: (state, action) => ({
       ...state,
       list: state.list.map(
         item =>
           item.id === action.payload
-            ? {...state, entered: !item.entered}
+            ? { ...item, entered: !item.entered }
             : item
       ),
+    }),
       [LEAVE]: (state, action) => ({
         ...state,
         list: state.list.filter(item => item.id !== action.payload),
-      })
-    })
+      }),
   },
   initialState
 )
