@@ -1,7 +1,7 @@
 import React from 'react';
 import './Palette.css';
 
-const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+const colors = ['white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black'];
 
 const PaletteItem = ({ color, active, onClick }) => {
   return (
